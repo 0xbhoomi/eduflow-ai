@@ -1,6 +1,8 @@
 # EduFlow AI - Intelligent Student Productivity Platform
 
 
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://eduflow-delta.vercel.app)
+
 ## Getting Started
 
 First, run the development server:
