@@ -1,0 +1,119 @@
+"use client";
+
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowLeft, ArrowRight, Mail, Lock, User } from 'lucide-react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
+export default function SignupPage() {
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleSignup = (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsLoading(true);
+        setTimeout(() => {
+            setIsLoading(false);
+            router.push('/dashboard');
+        }, 1500);
+    };
+
+    return (
+        <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 relative overflow-hidden">
+            {/* Background Ambience */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-cyan-900/20 via-slate-950 to-slate-950"></div>
+            <div className="absolute w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-3xl bottom-0 right-0"></div>
+
+            <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="w-full max-w-md relative z-10"
+            >
+                <Link href="/" className="inline-flex items-center text-slate-400 hover:text-white mb-8 transition-colors">
+                    <ArrowLeft className="w-4 h-4 mr-2" /> Back to Home
+                </Link>
+
+                <div className="text-center mb-8">
+                    <h1 className="text-3xl font-bold text-white mb-2">Create Account</h1>
+                    <p className="text-slate-400">Join the future of intelligent learning.</p>
+                </div>
+
+                <div className="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-8 shadow-2xl">
+                    <form onSubmit={handleSignup} className="space-y-5">
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-slate-300">First Name</label>
+                                <div className="relative">
+                                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                                    <input
+                                        type="text"
+                                        required
+                                        placeholder="John"
+                                        className="w-full bg-slate-950/50 border border-slate-700 rounded-lg pl-10 pr-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+                                    />
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-slate-300">Last Name</label>
+                                <input
+                                    type="text"
+                                    required
+                                    placeholder="Doe"
+                                    className="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium text-slate-300">University Email</label>
+                            <div className="relative">
+                                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                                <input
+                                    type="email"
+                                    required
+                                    placeholder="name@university.edu"
+                                    className="w-full bg-slate-950/50 border border-slate-700 rounded-lg pl-10 pr-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="space-y-2">
+                            <label className="text-sm font-medium text-slate-300">Password</label>
+                            <div className="relative">
+                                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                                <input
+                                    type="password"
+                                    required
+                                    placeholder="Create a strong password"
+                                    className="w-full bg-slate-950/50 border border-slate-700 rounded-lg pl-10 pr-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="pt-2">
+                            <button
+                                type="submit"
+                                disabled={isLoading}
+                                className="w-full bg-white text-slate-950 hover:bg-slate-200 font-bold py-3.5 rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                            >
+                                {isLoading ? (
+                                    <div className="w-5 h-5 border-2 border-slate-900/30 border-t-slate-900 rounded-full animate-spin"></div>
+                                ) : (
+                                    <>Get Started <ArrowRight className="w-5 h-5" /></>
+                                )}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <p className="text-center mt-6 text-slate-400">
+                    Already have an account?{' '}
+                    <Link href="/login" className="text-white hover:text-indigo-300 font-medium transition-colors">
+                        Sign in
+                    </Link>
+                </p>
+            </motion.div>
+        </div>
+    );
+}
